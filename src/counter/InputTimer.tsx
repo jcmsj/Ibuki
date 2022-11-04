@@ -1,6 +1,5 @@
 import { FormEvent, useEffect } from "react";
 import { useCounter } from "./CounterProvider";
-
 export function InputTimer() {
   const { count, setCount, decrement } = useCounter();
   let timer: number = 0;
@@ -42,9 +41,7 @@ export function InputTimer() {
   }
 
   return <>
-    <br></br>
-    <h2>
-
+    <h2 style={{textAlign:"center"}}>
       <input type="number"
         style={{
           border: "none",
