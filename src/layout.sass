@@ -1,0 +1,19 @@
+body
+    margin: 0
+    padding: 0
+    height: 100dvh
+
+#root
+    display: grid
+    grid-template-rows: 1fr 8fr 1fr
+    grid-template-columns: repeat(5, 1fr)
+    height: 100%
+
+header, footer
+    grid-column: 1/-1
+
+nav
+    grid-column: 1/2
+    
+main
+    grid-column: 2/-1
