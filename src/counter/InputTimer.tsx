@@ -1,55 +1,102 @@
-import { FormEvent, useEffect } from "react";
+import { FormEvent, useCallback, useEffect, useState } from "react";
+import { useInterval } from "react-use";
 import { useCounter } from "./CounterProvider";
-export function InputTimer() {
-  const { count, setCount, decrement } = useCounter();
-  let timer: number = 0;
-  const interval = 1000;
+import { usePlayerContext, STATE } from "./PlayerProvider";
 
-  function stop() {
-    clearInterval(timer);
-    timer = 0;
-  }
-  function start() {
-    timer = setInterval(decrement, interval)
-  }
-  function tick(e: KeyboardEvent) {
+/**
+ * @implNote in ms
+ * @TODO custom interval?
+ */
+const interval = 1000;
+
+export function InputTimer() {
+  const { count, setCount, decrement, last, restore, save} = useCounter();
+  const { state, stop, toggle, edit} = usePlayerContext()
+  const [raw, setRaw] = useState("")
+  useInterval(
+    decrement,
+    state == STATE.PLAYING ? interval : null
+  )
+  let input!: HTMLInputElement;
+
+  const tick = useCallback((e: KeyboardEvent) => {
+    console.log(e.code, state.toString());
     switch (e.code) {
       case "Space":
-        if (timer <= 0) {
-          start()
-        } else {
-          stop()
-        }
+        //Suspend listening to space
+        if (state != STATE.EDITING)
+          toggle()
         break;
       case "Escape":
         stop()
+        input.blur()
+        restore()
+        resync()
         break;
     }
-  }
-
+  }, [state, count])
+ 
   //onmount
   useEffect(() => {
-    window.addEventListener("keyup", tick);
+    window.addEventListener("keydown", tick);
 
     return () => {
-      window.removeEventListener("keyup", tick);
+      window.removeEventListener("keydown", tick);
     }
-  }, [])
+  }, [tick])
 
-  function override(e:FormEvent<HTMLInputElement>) {
-    setCount(parseInt(e.currentTarget.value))
+  useEffect(() => {
+    resync()
+  }, [count])
+
+  function override(e: FormEvent<HTMLInputElement>) {
+    setRaw(e.currentTarget.value)
   }
 
-  return <>
-    <h2 style={{textAlign:"center"}}>
+  function resync() {
+    setRaw("" + count) //Restore
+  }
+  function stopEdit(e: FormEvent<HTMLInputElement>) {
+    const stripped = parseInt(e.currentTarget.value.replace(/\D|\./, ""));
+    if (isNaN(stripped)) {
+      resync()
+    } else {
+      setCount(stripped)
+    }
+
+    stop()
+  }
+
+  function onEdit() {
+    save()
+    edit()
+  }
+  return <form
+    onSubmit={e => {
+      e.preventDefault()
+      if (state == STATE.EDITING) {
+        input.blur()
+      }
+    }}
+  >
+    <input
+      type="submit"
+      hidden
+    />
+    <h1 style={{ textAlign: "center" }}>
       <input type="number"
         style={{
           border: "none",
           textAlign: "center",
-          fontSize: "inherit"
+          fontSize: "inherit",
+          width: "max-content"
         }}
-        onInput={override}
-        value={count} />
-    </h2>
-  </>;
+        ref={me => { if (me) input = me }}
+        onBlur={stopEdit}
+        onFocus={onEdit}
+        onChange={override}
+        value={state == STATE.EDITING ? raw : count}
+      />
+    </h1>
+  </form>
 }

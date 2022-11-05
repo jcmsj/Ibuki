@@ -3,21 +3,21 @@ import { InputTimer } from './counter/InputTimer'
 import TopBar from './components/TopBar'
 import { Theme } from './components/Theme'
 import { CounterProvider } from './counter/CounterProvider'
-import { MusicNote } from "@mui/icons-material"
-import { IconButton } from '@mui/material'
+import { InputMusic } from './bgm/InputMusic'
+import { PlayerProvider } from './counter/PlayerProvider'
 function App() {
 
   return <>
     <Theme>
       <TopBar title="H">
-        <IconButton>
-          <MusicNote />
-        </IconButton>
+        {InputMusic()}
       </TopBar>
       <nav>N</nav>
       <main>
         <CounterProvider>
-          <InputTimer />
+          <PlayerProvider>
+            <InputTimer />
+          </PlayerProvider>
         </CounterProvider>
       </main>
       <footer>F</footer>

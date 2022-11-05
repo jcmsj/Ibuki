@@ -1,8 +1,9 @@
+import { ThemeProviderProps } from "@emotion/react";
 import { createTheme, ThemeProvider, useMediaQuery } from "@mui/material";
 import { useMemo } from "react";
 import { AuxProps } from "./AuxProps";
 
-export function Theme({ children, ...props }:AuxProps) {
+export function Theme({ children, ...props }:AuxProps<ThemeProviderProps>) {
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
     const theme = useMemo(
