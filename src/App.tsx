@@ -5,6 +5,7 @@ import { Theme } from './components/Theme'
 import { CounterProvider } from './counter/CounterProvider'
 import { InputMusic } from './bgm/InputMusic'
 import { PlayerProvider } from './counter/PlayerProvider'
+import Watcher from './counter/watcher'
 function App() {
 
   return <>
@@ -16,6 +17,7 @@ function App() {
       <main>
         <CounterProvider>
           <PlayerProvider>
+            <Watcher />
             <InputTimer />
           </PlayerProvider>
         </CounterProvider>

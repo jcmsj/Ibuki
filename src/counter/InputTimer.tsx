@@ -1,4 +1,4 @@
-import { FormEvent, useCallback, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { useInterval } from "react-use";
 import { useCounter } from "./CounterProvider";
 import { usePlayerContext, STATE } from "./PlayerProvider";
@@ -10,57 +10,29 @@ import { usePlayerContext, STATE } from "./PlayerProvider";
 const interval = 1000;
 
 export function InputTimer() {
-  const { count, setCount, decrement, last, restore, save} = useCounter();
-  const { state, stop, toggle, edit} = usePlayerContext()
+  const { count, setCount, decrement, save, restore } = useCounter();
+  const { state, stop, edit } = usePlayerContext()
   const [raw, setRaw] = useState("")
   useInterval(
     decrement,
     state == STATE.PLAYING ? interval : null
   )
-  let input!: HTMLInputElement;
 
-  const tick = useCallback((e: KeyboardEvent) => {
-    console.log(e.code, state.toString());
-    switch (e.code) {
-      case "Space":
-        //Suspend listening to space
-        if (state != STATE.EDITING)
-          toggle()
-        break;
-      case "Escape":
-        stop()
-        input.blur()
-        restore()
-        resync()
-        break;
-    }
-  }, [state, count])
- 
-  //onmount
-  useEffect(() => {
-    window.addEventListener("keydown", tick);
-
-    return () => {
-      window.removeEventListener("keydown", tick);
-    }
-  }, [tick])
-
-  useEffect(() => {
-    resync()
-  }, [count])
 
   function override(e: FormEvent<HTMLInputElement>) {
     setRaw(e.currentTarget.value)
+    //Only update count when input is committed
   }
 
   function resync() {
-    setRaw("" + count) //Restore
+    setRaw("" + count); //Restore
   }
-  function stopEdit(e: FormEvent<HTMLInputElement>) {
-    const stripped = parseInt(e.currentTarget.value.replace(/\D|\./, ""));
+  function commitOrRollback() {
+    const stripped = parseInt(raw.replace(/\D|\./, ""));
     if (isNaN(stripped)) {
       resync()
     } else {
+      // Override
       setCount(stripped)
     }
 
@@ -68,21 +40,12 @@ export function InputTimer() {
   }
 
   function onEdit() {
+    resync()
     save()
     edit()
   }
-  return <form
-    onSubmit={e => {
-      e.preventDefault()
-      if (state == STATE.EDITING) {
-        input.blur()
-      }
-    }}
-  >
-    <input
-      type="submit"
-      hidden
-    />
+
+  return <>
     <h1 style={{ textAlign: "center" }}>
       <input type="number"
         style={{
@@ -91,12 +54,23 @@ export function InputTimer() {
           fontSize: "inherit",
           width: "max-content"
         }}
-        ref={me => { if (me) input = me }}
-        onBlur={stopEdit}
         onFocus={onEdit}
+        onBlur={commitOrRollback}
+        onKeyDown={e => {
+          switch (e.code) {
+            case "Enter":
+              e.currentTarget.blur()
+              break;
+            case "Escape":
+              stop()
+              e.currentTarget.blur()
+              restore()
+              break;
+          }
+        }}
         onChange={override}
         value={state == STATE.EDITING ? raw : count}
       />
     </h1>
-  </form>
+  </>
 }
