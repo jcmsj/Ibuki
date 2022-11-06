@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEvent } from "react-use";
 import { useCounter } from "./CounterProvider";
 import { STATE, usePlayerContext } from "./PlayerProvider";
 
@@ -24,14 +24,7 @@ export default function Watcher() {
                 break;
         }
     }
-
-    //onmount
-    useEffect(() => {
-        window.addEventListener("keydown", tick);
-
-        return () =>
-            window.removeEventListener("keydown", tick);
-    }, []);
+    useEvent("keyup", tick)
 
     return <>
     </>;

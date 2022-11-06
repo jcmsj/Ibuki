@@ -3,7 +3,7 @@ import { InputTimer } from './counter/InputTimer'
 import TopBar from './components/TopBar'
 import { Theme } from './components/Theme'
 import { CounterProvider } from './counter/CounterProvider'
-import { InputMusic } from './bgm/InputMusic'
+import { InputMX } from './mx/InputMX'
 import { PlayerProvider } from './counter/PlayerProvider'
 import Watcher from './counter/Watcher'
 function App() {
@@ -11,7 +11,7 @@ function App() {
   return <>
     <Theme>
       <TopBar title="H">
-        {InputMusic()}
+        <InputMX />
       </TopBar>
       <nav>N</nav>
       <main>

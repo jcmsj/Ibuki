@@ -17,6 +17,9 @@
   - [ ] prev
   - [ ] jump
 - [] Timer
+  - [ ] on reset
+    - [ ] next slide
+    - [ ] when exhausted `part`: next part
 
 ## Timer
 - [x] keyboard controls
@@ -28,15 +31,16 @@
 - [ ] UI
   - [ ] default
   - [ ] customizable
+  - [ ] vfx between changing states.
 - [x] Editable
   - [x] Cancellable
   - [x] validation
 - [x] Resets on 0
 
 ## Background Music
-- [ ] Button
-- [ ] Label
-- [ ] Music selection
+- [x] Button
+- [x] Music selection
+- [x] Play/Pause
 - [ ] Playback synced with timer
-
+- [ ] Clip cutter like YT (separate package)
 ## Ibuki file
