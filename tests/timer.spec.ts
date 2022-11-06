@@ -13,7 +13,7 @@ test.describe("Timer", () => {
         expect(current).not.toBeNaN()
     })
 
-    test("decrements", async ({ page }) => {
+    test("Decrements by 1", async ({ page }) => {
         const input = page.locator(sel)
         const current = parseInt(await input.inputValue())
         await page.keyboard.press(" ")

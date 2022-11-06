@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { useCounter } from "./CounterProvider";
 import { STATE, usePlayerContext } from "./PlayerProvider";
 
@@ -9,25 +9,30 @@ import { STATE, usePlayerContext } from "./PlayerProvider";
 export default function Watcher() {
     const { state, stop, toggle } = usePlayerContext()
     const { count, restore } = useCounter();
-    const tick = useCallback((e: KeyboardEvent) => {
+    function tick(e: KeyboardEvent) {
         console.log(e.code, state.toString());
         switch (e.code) {
             case "Space":
                 //Suspend listening to space
                 if (state != STATE.EDITING)
-                    toggle()
+                    toggle();
+                break;
+
+            case "Escape":
+                restore();
+                stop();
                 break;
         }
-    }, [state, count])
+    }
 
     //onmount
     useEffect(() => {
         window.addEventListener("keydown", tick);
 
-        return () => {
+        return () =>
             window.removeEventListener("keydown", tick);
-        }
-    }, [tick])
+    }, []);
+
     return <>
-    </>
+    </>;
 }

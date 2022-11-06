@@ -31,7 +31,7 @@
 - [x] Editable
   - [x] Cancellable
   - [x] validation
-- [ ] Resets on 0
+- [x] Resets on 0
 
 ## Background Music
 - [ ] Button
