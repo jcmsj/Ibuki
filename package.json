@@ -11,6 +11,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@jcsj/option": "link:E:/Code/Web Dev/optional",
     "@mui/icons-material": "^5.10.9",
     "@mui/material": "^5.10.12",
     "localforage": "^1.10.0",
@@ -23,11 +24,11 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.27.1",
-    "@types/react": "^18.0.22",
-    "@types/react-dom": "^18.0.7",
+    "@types/react": "^18.0.25",
+    "@types/react-dom": "^18.0.8",
     "@vitejs/plugin-react": "^2.2.0",
     "sass": "^1.56.0",
-    "typescript": "^4.6.4",
+    "typescript": "^4.8.4",
     "vite": "^3.2.2"
   }
 }
