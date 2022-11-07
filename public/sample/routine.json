@@ -1,0 +1,95 @@
+{
+    "name": "Leg Strengthening",
+    "description": "A sample routine",
+    "timer": {
+        "action": 30,
+        "break": 10,
+        "prep": 3,
+        "key-activate": "Space",
+        "reset": "Tab"
+    },
+    "warmup": {
+        "name":"warm-up",
+        "sets": 1,
+        "items": [
+            {
+                "name": "Side Stretches",
+                "media": "./circuit/lita-lewis-wide-toe-touch.gif"
+            },
+            {
+                "name": "Knee hugs (L & R)",
+                "media": "./circuit/knee-hugs.gif"
+            },
+            {
+                "name": "Cross body step kicks",
+                "media": "./circuit/cross-body-step-kicks.png"
+            },
+            {
+                "name": "Arm Circles (F & B)",
+                "media": "./circuit/arm-circles.gif"
+            },
+            {
+                "name": "Cross Arm stretch (L & R)",
+                "media": "./circuit/cross-arm-stretch.webp"
+            },
+            {
+                "name": "Side lunges",
+                "media": "./circuit/side-lunges.gif"
+            },
+            {
+                "name": "Leg Swings",
+                "media": "./circuit/leg-swings.gif"
+            }
+        ]
+    },
+    "drills": [
+        {
+            "sets": 3,
+            "name": "conditioning",
+            "items": [
+                {
+                    "name": "Front Plank",
+                    "media": ""
+                },
+                {
+                    "name": "Russian Twist",
+                    "media": ""
+                },
+                {
+                    "name": "Chest Presses",
+                    "media": "./circuit/chest-presses.png"
+                },
+                {
+                    "name": "Squats",
+                    "media": ""
+                },
+                {
+                    "name": "Standing Bicep Curls",
+                    "media": "./circuit/bicep-curls.png"
+                }
+            ]
+        }
+    ],
+    "cooldown": {
+        "name":"cooldown",
+        "sets": 1,
+        "items": [
+            {
+                "name": "Knee-to-chest pose (L & R)",
+                "media": "./circuit/knee-to-chest-pose.webp"
+            },
+            {
+                "name": "Seated Single-leg hamstring",
+                "media": "./circuit/seated-single-leg.gif"
+            },
+            {
+                "name": "Seated Forward Bend",
+                "media": "./circuit/seated-forward-bend.webp"
+            },
+            {
+                "name": "Hip Flexors",
+                "media": "./circuit/hip-flexor.gif"
+            }
+        ]
+    }
+}
