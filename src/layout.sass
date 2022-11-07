@@ -1,7 +1,20 @@
+:root
+    --web-wash: #18191A
 body
     margin: 0
     padding: 0
     height: 100dvh
+
+/* .MuiAppBar-root
+    background: inherit !important */
+
+@media (prefers-color-scheme: dark)
+    body
+        background: var(--web-wash)
+
+@media (prefers-color-scheme: light)
+    body
+        background-color: whitesmoke
 
 #root
     display: grid

@@ -44,3 +44,11 @@
 - [x] Playback synced with timer states
 - [ ] Clip cutter like YT (separate package)
 ## Ibuki file
+- [ ] basic metadata
+- [ ] parts
+
+## Editor
+
+## List
+
+## Client-storage (dexie)
