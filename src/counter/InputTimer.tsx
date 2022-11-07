@@ -2,13 +2,13 @@ import { FormEvent, useEffect, useState } from "react";
 import { useCounter } from "./CounterProvider";
 import { usePlayerContext, STATE } from "./PlayerProvider";
 import { useInterval } from "../lib/useInterval";
+import { send, TimerEV } from "./TimerEV";
 
 /**
  * @implNote in ms
  * @TODO custom interval?
  */
 const interval = 1000;
-
 export function InputTimer() {
   const { count, setCount, dec, save, restore } = useCounter();
   const { state, stop, edit } = usePlayerContext()
@@ -22,9 +22,10 @@ export function InputTimer() {
 
   function resync() {
     setRaw("" + count); //Restore
+    send(TimerEV.stop)
   }
   function commitOrRollback() {
-    const stripped = parseInt(raw.replace(/\D|\./, ""));
+    const stripped = parseInt(raw.replace(/\D/, ""));
     if (isNaN(stripped)) {
     } else {
       // Override
@@ -43,7 +44,9 @@ export function InputTimer() {
 
   useEffect(() => {
     if (state == STATE.PLAYING && count < 0) {
+      send(TimerEV.stop)
       restore()
+      send()
     }
   }, [count])
   return <>

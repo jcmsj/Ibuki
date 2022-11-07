@@ -6,12 +6,15 @@ import { CounterProvider } from './counter/CounterProvider'
 import { InputMX } from './mx/InputMX'
 import { PlayerProvider } from './counter/PlayerProvider'
 import Watcher from './counter/Watcher'
+import { MXProvider } from './mx/MXProvider'
 function App() {
 
   return <>
     <Theme>
       <TopBar title="H">
-        <InputMX />
+        <MXProvider>
+          <InputMX />
+        </MXProvider>
       </TopBar>
       <nav>N</nav>
       <main>

@@ -1,25 +1,30 @@
 import { option } from "@jcsj/option";
 import { useEvent } from "react-use";
+import { TimerEV, TimerEvent } from "../counter/TimerEV";
 import { useMXContext } from "./MXProvider";
 
 export default function Controller() {
-    const audio = useMXContext()
+    const {audio, startAt} = useMXContext()
     function toggle() {
         option(audio.current).bind(a => {
             a.paused ? a.play() : a.pause()
         })
     }
     
-    function watcher(e: KeyboardEvent) {
-        console.log(e.code);
-        switch (e.code) {
-            case "Space":
-                toggle()
+    function watcher(e: TimerEvent) {
+        console.log(e.detail);
+        switch (e.detail.type) {
+            case TimerEV.stop:
+                audio.current?.pause()
+                audio.current?.fastSeek(startAt)
                 break;
+            case TimerEV.toggle:
+                toggle()
+            break;
         }
     }
 
-    useEvent("keyup", watcher)
+    useEvent("timer", watcher)
 
     return <></>
 }

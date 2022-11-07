@@ -6,7 +6,7 @@ import Controller from "./Controller";
 
 export function InputMX() {
   let inputter!: HTMLInputElement;
-  const audio = useMXContext();
+  const {audio} = useMXContext();
 
   function revoke(a?: HTMLAudioElement) {
     if (a && a.src)

@@ -41,6 +41,6 @@
 - [x] Button
 - [x] Music selection
 - [x] Play/Pause
-- [ ] Playback synced with timer
+- [x] Playback synced with timer states
 - [ ] Clip cutter like YT (separate package)
 ## Ibuki file
