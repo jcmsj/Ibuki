@@ -13,32 +13,32 @@
         "sets": 1,
         "items": [
             {
-                "name": "Side Stretches",
-                "media": "./circuit/lita-lewis-wide-toe-touch.gif"
+                "name": "Wide Toe Touch",
+                "media": "./sample/circuit/lita-lewis-wide-toe-touch.gif"
             },
             {
                 "name": "Knee hugs (L & R)",
-                "media": "./circuit/knee-hugs.gif"
+                "media": "./sample/circuit/knee-hugs.gif"
             },
             {
                 "name": "Cross body step kicks",
-                "media": "./circuit/cross-body-step-kicks.png"
+                "media": "./sample/circuit/cross-body-step-kicks.png"
             },
             {
                 "name": "Arm Circles (F & B)",
-                "media": "./circuit/arm-circles.gif"
+                "media": "./sample/circuit/arm-circles.gif"
             },
             {
                 "name": "Cross Arm stretch (L & R)",
-                "media": "./circuit/cross-arm-stretch.webp"
+                "media": "./sample/circuit/cross-arm-stretch.webp"
             },
             {
                 "name": "Side lunges",
-                "media": "./circuit/side-lunges.gif"
+                "media": "./sample/circuit/side-lunges.gif"
             },
             {
                 "name": "Leg Swings",
-                "media": "./circuit/leg-swings.gif"
+                "media": "./sample/circuit/leg-swings.gif"
             }
         ]
     },
@@ -57,7 +57,7 @@
                 },
                 {
                     "name": "Chest Presses",
-                    "media": "./circuit/chest-presses.png"
+                    "media": "./sample/circuit/chest-presses.png"
                 },
                 {
                     "name": "Squats",
@@ -65,7 +65,7 @@
                 },
                 {
                     "name": "Standing Bicep Curls",
-                    "media": "./circuit/bicep-curls.png"
+                    "media": "./sample/circuit/bicep-curls.png"
                 }
             ]
         }
@@ -76,19 +76,19 @@
         "items": [
             {
                 "name": "Knee-to-chest pose (L & R)",
-                "media": "./circuit/knee-to-chest-pose.webp"
+                "media": "./sample/circuit/knee-to-chest-pose.webp"
             },
             {
                 "name": "Seated Single-leg hamstring",
-                "media": "./circuit/seated-single-leg.gif"
+                "media": "./sample/circuit/seated-single-leg.gif"
             },
             {
                 "name": "Seated Forward Bend",
-                "media": "./circuit/seated-forward-bend.webp"
+                "media": "./sample/circuit/seated-forward-bend.webp"
             },
             {
                 "name": "Hip Flexors",
-                "media": "./circuit/hip-flexor.gif"
+                "media": "./sample/circuit/hip-flexor.gif"
             }
         ]
     }

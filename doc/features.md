@@ -10,8 +10,8 @@
 - [ ] add sections
   
 ## Slideshow
-- [ ] Add slides
-- [ ] current slide
+- [x] Add slides
+- [x] current slide
 - [ ] Slide navigation
   - [ ] next
   - [ ] prev
@@ -44,8 +44,8 @@
 - [x] Playback synced with timer states
 - [ ] Clip cutter like YT (separate package)
 ## Ibuki file
-- [ ] basic metadata
-- [ ] parts
+- [x] basic metadata
+- [x] parts
 
 ## Editor
 
