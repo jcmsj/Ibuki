@@ -9,33 +9,30 @@ import Watcher from './counter/Watcher'
 import { MXProvider } from './mx/MXProvider'
 import RoutineProvider from './routine/RoutineProvider'
 import RoutineLoader from './routine/Loader'
-import DefaultDrillNav from './routine/Drill'
 import Carousel from './carousel/Carousel'
+import Flow from './routine/Flow'
 function App() {
 
   return <>
     <Theme>
       <RoutineProvider>
-        <TopBar title="H">
+        <TopBar title="">
           <RoutineLoader />
           <MXProvider>
             <InputMX />
           </MXProvider>
         </TopBar>
-        <nav>
-          <DefaultDrillNav />
-        </nav>
-      <main>
-        <CounterProvider initial={10}>
-          <PlayerProvider>
-            <Watcher />
-            <InputTimer />
-          </PlayerProvider>
-        </CounterProvider>
-        <Carousel />
-      </main>
+        <main>
+          <CounterProvider initial={10}>
+            <PlayerProvider>
+              <Watcher />
+              <InputTimer />
+            </PlayerProvider>
+          </CounterProvider>
+          <Carousel />
+        </main>
+        <footer><Flow /></footer>
       </RoutineProvider>
-      <footer>F</footer>
     </Theme>
   </>
 }
