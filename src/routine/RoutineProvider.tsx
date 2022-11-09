@@ -1,5 +1,6 @@
 import { createContext, PropsWithChildren, useContext, useReducer } from "react";
 import NoProviderError from "../lib/NoProviderError";
+import { indexAtMod } from "../lib/indexAtMod";
 import { Drill, Item, Routine } from "./types";
 
 export interface RoutineState {
@@ -19,9 +20,8 @@ export function useRoutineContext() {
     return NoProviderError.unless("Routine context", useContext(routineContext))
 }
 
-
 interface Position {
-    drill?: string | number;
+    drill?: number;
     item?: number;
 }
 
@@ -39,13 +39,17 @@ export interface ActionProps {
 }
 
 
+/**
+ * @see implNote of {@link reducer}
+ */
 export function nextFlow(state: RoutineState, next: NextFlow): RoutineState | undefined {
     if (!state.drill) {
         return undefined;
     }
     const cDrill = state.drill;
     if (next.item) {
-        const item = cDrill?.items.at(state.itemIndex! + 1)
+        //DO NOT WRAP INDEX
+        const item = cDrill.items.at(state.itemIndex! + 1)
         if (item) {
             return { ...state, item, itemIndex: state.itemIndex! + 1 };
         }
@@ -54,60 +58,40 @@ export function nextFlow(state: RoutineState, next: NextFlow): RoutineState | un
         next.drill = true;
     }
 
-    if (next.drill) {
-        let drill: Drill | undefined;
-        let index: number | undefined;
+    if (state.routine && next.drill) {
         const { routine } = state;
+        const { drills } = routine;
+        let drill: Drill | undefined;
+        let index = drills.indexOf(cDrill);
 
-        if (cDrill.name == "warmup") {
-            index = 0;
-        } else if (cDrill.name == "cooldown") {
-            drill = routine?.warmup;
-        } else {
-            index = routine?.drills.indexOf(cDrill);
-
-            if (typeof index == "number")
-                index++;
-        }
-        
-        if (!drill && typeof index == "number") {
-            drill = routine?.drills.at(index)
-        }
-        
-        if (!drill) {
-            drill = routine?.cooldown
+        if (typeof index == "number") {
+            drill = indexAtMod(drills)(++index)
         }
 
         if (drill) {
-            return { ...state, drill, itemIndex: 0 }
+            return { ...state, drill, itemIndex: index }
         }
     }
-
 
     return undefined;
 }
 
+/**
+ * @see implNote of {@link reducer}
+ */
 export function jumpTo(state: RoutineState, p: Position): RoutineState | undefined {
     if (p.drill) {
-        const at = p.drill;
-        let drill: Drill | undefined;
-        if (typeof at == "string") {
-            if (at == "warmup" || at == "cooldown") {
-                drill = state.routine![at];
-            } else {
-                drill = state.routine?.drills.find(d => d.name == "at")
-            }
-        } else if (!isNaN(at)) {
-            drill = state.routine?.drills.at(at)
-        }
+        const drill = indexAtMod(state.routine?.drills || [])(p.drill || 0)
+
 
         if (drill) {
-            return { ...state, drill }
+            state.drill == drill;
+            p.item = 0;
         }
     }
 
     if (typeof p.item == "number") {
-        const index = p.item
+        const index = p.item % state.drill?.items.length!;
 
         const item = state.drill?.items.at(index)
         //TODO: Handle undef item
@@ -118,7 +102,7 @@ export function jumpTo(state: RoutineState, p: Position): RoutineState | undefin
 }
 
 /**
- * @TODO Document priority
+ * @implNote Check order of each props are important
  */
 export function reducer(state: RoutineState, action: ActionProps) {
     if (action.at) {
@@ -132,8 +116,14 @@ export function reducer(state: RoutineState, action: ActionProps) {
             return result;
     }
 
+    if (action.routine) {
+        state.routine = action.routine;
+        action.drill = action.routine.drills[0]
+    }
+
     if (action.drill) {
-        return { ...state, drill: action.drill, itemIndex: 0 }
+        state.drill = action.drill;
+        action.item = action.drill.items[0]
     }
 
     if (action.item) {
@@ -141,15 +131,6 @@ export function reducer(state: RoutineState, action: ActionProps) {
 
         if (typeof i == "number") {
             return { ...state, item: action.item, itemIndex: i }
-        }
-    }
-
-    if (action.routine) {
-        return {
-            routine: action.routine,
-            drill: action.routine.warmup,
-            item: action.routine.warmup.items[0],
-            itemIndex: 0
         }
     }
 

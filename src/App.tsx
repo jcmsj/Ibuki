@@ -11,12 +11,14 @@ import RoutineProvider from './routine/RoutineProvider'
 import RoutineLoader from './routine/Loader'
 import Carousel from './carousel/Carousel'
 import Flow from './routine/Flow'
+import DrillsTab from './routine/DrillsTab'
 function App() {
 
   return <>
     <Theme>
       <RoutineProvider>
         <TopBar title="">
+          <DrillsTab />
           <RoutineLoader />
           <MXProvider>
             <InputMX />

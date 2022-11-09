@@ -21,7 +21,5 @@ export interface Routine {
         break:number,
         prep:number,
     },
-    warmup:Drill
     drills:Drill[]
-    cooldown:Drill
 }

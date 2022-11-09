@@ -6,17 +6,18 @@
 - [ ] section tabs
 
 ## Workout parts
-- [ ] navbar(top/bot) routine drills view
+- [x] navbar(top) routine drills view
 - [x] drill items view
 - [ ] persist item index on switch
 ## Slideshow
 - [x] Add slides
 - [x] current slide
-- [ ] Slide navigation
-  - [ ] next
-  - [ ] prev
-  - [ ] jump
+- [x] Slide navigation
+  - [x] next
+  - [x] prev
+  - [x] jump
 - [] Timer
+  - [ ] resets on switch
   - [x] on reset
     - [x] next slide
     - [x] when exhausted `part`: next part
