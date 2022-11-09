@@ -15,8 +15,10 @@ export default function Controller() {
         console.log(e.detail);
         switch (e.detail.type) {
             case TimerEV.stop:
-                audio.current?.pause()
-                audio.current?.fastSeek(startAt)
+                if (audio.current) {
+                    audio.current.pause()
+                    audio.current.currentTime = startAt
+                }
                 break;
             case TimerEV.toggle:
                 toggle()

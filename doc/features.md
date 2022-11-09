@@ -7,9 +7,7 @@
 
 ## Workout parts
 - [ ] navbar(top/bot) routine drills view
-- [ ] drill items view
-  - [x] pc -> sidebar
-  - [ ] mobile -> dropdown
+- [x] drill items view
 - [ ] persist item index on switch
 ## Slideshow
 - [x] Add slides
@@ -19,9 +17,10 @@
   - [ ] prev
   - [ ] jump
 - [] Timer
-  - [ ] on reset
-    - [ ] next slide
-    - [ ] when exhausted `part`: next part
+  - [x] on reset
+    - [x] next slide
+    - [x] when exhausted `part`: next part
+    - [x] loops
 
 ## Timer
 - [x] keyboard controls

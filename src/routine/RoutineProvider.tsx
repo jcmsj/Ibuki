@@ -45,40 +45,44 @@ export function nextFlow(state: RoutineState, next: NextFlow): RoutineState | un
     }
     const cDrill = state.drill;
     if (next.item) {
-        const item = cDrill?.items.at(state.itemIndex!)
+        const item = cDrill?.items.at(state.itemIndex! + 1)
         if (item) {
-            const i = cDrill?.items.indexOf(item);
-
-            if (i)
-                return { ...state, item, itemIndex: i };
-
-            return nextFlow(state, { drill: true })
+            return { ...state, item, itemIndex: state.itemIndex! + 1 };
         }
 
-        console.warn("Index overflow", next)
+        //when overflow
+        next.drill = true;
     }
 
     if (next.drill) {
-        const name = cDrill.name;
-        const { routine } = state;
+        let drill: Drill | undefined;
         let index: number | undefined;
+        const { routine } = state;
 
-        if (name == "warmup") {
+        if (cDrill.name == "warmup") {
             index = 0;
-        }
-        if (name == "cooldown") {
-            return { ...state, drill:routine?.warmup }
+        } else if (cDrill.name == "cooldown") {
+            drill = routine?.warmup;
         } else {
             index = routine?.drills.indexOf(cDrill);
-            /* const i = 
-            if (i)
-                drill = routine?.drills.at(i + 1); */
+
+            if (typeof index == "number")
+                index++;
+        }
+        
+        if (!drill && typeof index == "number") {
+            drill = routine?.drills.at(index)
+        }
+        
+        if (!drill) {
+            drill = routine?.cooldown
         }
 
-        if (index) {
-            return jumpTo(state, { drill: index });
+        if (drill) {
+            return { ...state, drill, itemIndex: 0 }
         }
     }
+
 
     return undefined;
 }
@@ -104,7 +108,7 @@ export function jumpTo(state: RoutineState, p: Position): RoutineState | undefin
 
     if (typeof p.item == "number") {
         const index = p.item
-        
+
         const item = state.drill?.items.at(index)
         //TODO: Handle undef item
         return { ...state, item, itemIndex: index }
@@ -122,19 +126,19 @@ export function reducer(state: RoutineState, action: ActionProps) {
         if (result)
             return result;
     }
-    if(action.next) {
+    if (action.next) {
         const result = nextFlow(state, action.next)
         if (result)
             return result;
     }
 
     if (action.drill) {
-        return { ...state, drill: action.drill }
+        return { ...state, drill: action.drill, itemIndex: 0 }
     }
 
     if (action.item) {
         const i = state.drill?.items.indexOf(action.item);
-        
+
         if (typeof i == "number") {
             return { ...state, item: action.item, itemIndex: i }
         }
@@ -145,7 +149,7 @@ export function reducer(state: RoutineState, action: ActionProps) {
             routine: action.routine,
             drill: action.routine.warmup,
             item: action.routine.warmup.items[0],
-            itemIndex:0
+            itemIndex: 0
         }
     }
 

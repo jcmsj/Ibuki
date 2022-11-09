@@ -3,6 +3,7 @@ import { useCounter } from "./CounterProvider";
 import { usePlayerContext, STATE } from "./PlayerProvider";
 import { useInterval } from "../lib/useInterval";
 import { send, TimerEV } from "./TimerEV";
+import { useRoutineContext } from "../routine/RoutineProvider";
 
 /**
  * @implNote in ms
@@ -14,7 +15,7 @@ export function InputTimer() {
   const { state, stop, edit } = usePlayerContext()
   const [raw, setRaw] = useState("")
   useInterval(dec, state == STATE.PLAYING ? interval : undefined)
-
+  const {dispatch} = useRoutineContext()
   function override(e: FormEvent<HTMLInputElement>) {
     setRaw(e.currentTarget.value)
     //Only update `count` when input is committed
@@ -46,6 +47,7 @@ export function InputTimer() {
     if (state == STATE.PLAYING && count < 0) {
       send(TimerEV.stop)
       restore()
+      dispatch({next:{item:true}})
       send()
     }
   }, [count])
