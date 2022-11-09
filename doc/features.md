@@ -6,9 +6,11 @@
 - [ ] section tabs
 
 ## Workout parts
-- [ ] section view
-- [ ] add sections
-  
+- [ ] navbar(top/bot) routine drills view
+- [ ] drill items view
+  - [x] pc -> sidebar
+  - [ ] mobile -> dropdown
+- [ ] persist item index on switch
 ## Slideshow
 - [x] Add slides
 - [x] current slide

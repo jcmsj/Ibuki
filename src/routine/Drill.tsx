@@ -1,32 +1,24 @@
 import { Drill, Item } from "./types";
-import { List, ListItemButton, ListItemText, MenuItem, Select } from "@mui/material";
+import { ListItemButton, ListItemText } from "@mui/material";
 import { useRoutineContext } from "./RoutineProvider";
-import { Tabs, Tab, NativeSelect } from "@mui/material"
-import { useEffect, useState } from "react";
+import { Tabs, Tab } from "@mui/material"
 export interface DrillProps {
     drill: Drill
 }
-export function DrillNav({ drill }: DrillProps) {
-    const {dispatch} = useRoutineContext()
-    const [active, setActive] = useState(0)
+export function DrillNav() {
+    const { dispatch, state } = useRoutineContext()
     const onChange = (e: React.SyntheticEvent, n: number) => {
-        setActive(n);
+        dispatch({ at: 
+            { item: n } 
+        })
     };
 
-    useEffect(() => {
-        /* 
-        TODO: Decide whether to reset from 0
-        if (drill.items.length < active) {
-        } */
-        setActive(0)
-    }, [drill])
     return <>
-        {/* 
-        TODO: For Mobile Layout
+        {/* //TODO: For Mobile Layout
         <Select
-            value={active}
+            value={state.itemIndex}
             variant="filled"
-            onChange={e => setActive(e.target.value as number)}
+            onChange={onChange}
             fullWidth={true}
             style={{width:"100%"}}
         >
@@ -38,15 +30,15 @@ export function DrillNav({ drill }: DrillProps) {
             </MenuItem>)}
         </Select> */}
         <Tabs
-            value={active}
+            value={state.itemIndex}
             onChange={onChange}
             orientation="vertical"
             TabIndicatorProps={{ style: { left: 2 } }}
         >
-            {drill.items.map(item => <Tab
-                onClick={e => {dispatch({item}); e.stopPropagation()}}
+            {state.drill?.items.map((item, i) => <Tab
                 label={item.name}
                 key={item.name}
+                value={i}
             />)}
         </Tabs>
     </>
@@ -54,11 +46,9 @@ export function DrillNav({ drill }: DrillProps) {
 
 export default function DefaultDrillNav() {
     const { state } = useRoutineContext()
-    
-    if (state.routine && state.drill) {
-        return <DrillNav
-            drill={state.drill}
-        />
+
+    if (state.drill) {
+        return <DrillNav />
     }
 
     return <>
