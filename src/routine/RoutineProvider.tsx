@@ -39,7 +39,7 @@ export interface ActionProps {
 }
 
 
-function nextFlow(state: RoutineState, next: NextFlow): RoutineState | undefined {
+export function nextFlow(state: RoutineState, next: NextFlow): RoutineState | undefined {
     if (!state.drill) {
         return undefined;
     }
@@ -83,7 +83,7 @@ function nextFlow(state: RoutineState, next: NextFlow): RoutineState | undefined
     return undefined;
 }
 
-function jumpTo(state: RoutineState, p: Position): RoutineState | undefined {
+export function jumpTo(state: RoutineState, p: Position): RoutineState | undefined {
     if (p.drill) {
         const at = p.drill;
         let drill: Drill | undefined;
@@ -116,7 +116,7 @@ function jumpTo(state: RoutineState, p: Position): RoutineState | undefined {
 /**
  * @TODO Document priority
  */
-function reducer(state: RoutineState, action: ActionProps) {
+export function reducer(state: RoutineState, action: ActionProps) {
     if (action.at) {
         const result = jumpTo(state, action.at)
         if (result)
