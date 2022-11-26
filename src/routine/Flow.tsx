@@ -25,7 +25,7 @@ export function Switcher() {
         <Skip
             item={state.drill?.items[state.itemIndex! - 1]}
             endIcon={<NavigateBefore />}
-            onClick={e => jumpTo(state.itemIndex! - 1)}
+            onClick={jumpTo.bind(undefined, state.itemIndex! - 1)}
         />
         <Select
             value={state.itemIndex}
@@ -42,7 +42,7 @@ export function Switcher() {
         <Skip
             item={state.drill?.items[state.itemIndex! + 1]}
             startIcon={<NavigateNext />}
-            onClick={e => jumpTo(state.itemIndex! + 1)}
+            onClick={jumpTo.bind(undefined, state.itemIndex! + 1)}
         />
     </ButtonGroup>
 }

@@ -7,10 +7,10 @@ export default function DrillsTab() {
     const [index, setIndex] = useState(0);
 
     useEffect(() => {
-        if(state.routine && state.routine.drills) {
+        if (state.routine && state.routine.drills) {
             setIndex(state.routine.drills.findIndex(d => d.name == state.drill!.name))
         }
-        
+
     }, [state.drill])
     return <>
         <Tabs
