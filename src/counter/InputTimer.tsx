@@ -58,6 +58,22 @@ export function InputTimer() {
       send(TimerEV.NEXT)
     }
   }, [count])
+
+  function onKeyDown(e:React.KeyboardEvent<HTMLInputElement>) {
+      switch (e.code) {
+        case "Space":
+          e.stopPropagation()
+          break;
+        case "Enter":
+          e.currentTarget.blur()
+          break;
+        case "Escape":
+          e.stopPropagation()
+          e.currentTarget.blur()
+          restore()
+          break;
+      }
+  }
   return <>
     <h1 style={{ textAlign: "center" }}>
       <input type="number"
@@ -69,21 +85,7 @@ export function InputTimer() {
         }}
         onFocus={goEdit}
         onBlur={commitOrRollback}
-        onKeyDown={e => {
-          switch (e.code) {
-            case "Space":
-              e.stopPropagation()
-              break;
-            case "Enter":
-              e.currentTarget.blur()
-              break;
-            case "Escape":
-              e.stopPropagation()
-              e.currentTarget.blur()
-              restore()
-              break;
-          }
-        }}
+        onKeyDown={onKeyDown}
         onChange={override}
         value={state == STATE.EDITING ? raw : count}
       />
