@@ -17,23 +17,23 @@ function App() {
   return <>
     <Theme>
       <RoutineProvider>
-        <TopBar title="">
-          <DrillsTab />
-          <RoutineLoader />
-          <MXProvider>
-            <InputMX />
-          </MXProvider>
-        </TopBar>
-        <main>
-          <CounterProvider initial={10}>
-            <PlayerProvider>
+        <PlayerProvider>
+          <TopBar title="">
+            <DrillsTab />
+            <RoutineLoader />
+            <MXProvider>
+              <InputMX />
+            </MXProvider>
+          </TopBar>
+          <main>
+            <CounterProvider initial={10}>
               <Watcher />
               <InputTimer />
-            </PlayerProvider>
-          </CounterProvider>
-          <Carousel />
-        </main>
-        <footer><Flow /></footer>
+            </CounterProvider>
+            <Carousel />
+          </main>
+          <footer><Flow /></footer>
+        </PlayerProvider>
       </RoutineProvider>
     </Theme>
   </>

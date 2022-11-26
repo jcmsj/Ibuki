@@ -1,32 +1,40 @@
-import { option } from "@jcsj/option";
 import { useEvent } from "react-use";
-import { TimerEV, TimerEvent } from "../counter/TimerEV";
+import { STATE, usePlayerContext } from "../counter/PlayerProvider";
+import { send, TimerEV, TimerEvent, name as timerEV } from "../counter/TimerEV";
 import { useMXContext } from "./MXProvider";
 
 export default function Controller() {
-    const {audio, startAt} = useMXContext()
+    const { audio, startAt } = useMXContext()
+    const { state } = usePlayerContext()
     function toggle() {
-        option(audio.current).bind(a => {
-            a.paused ? a.play() : a.pause()
-        })
+        send(
+            (audio.current?.paused ?? state == STATE.HALTED) ?
+                TimerEV.PLAY : TimerEV.PAUSE
+        )
     }
-    
+
     function watcher(e: TimerEvent) {
         console.log(e.detail);
         switch (e.detail.type) {
-            case TimerEV.stop:
+            case TimerEV.PAUSE:
+                audio.current?.pause()
+                break;
+            case TimerEV.PLAY:
+                audio.current?.play()
+                break;
+            case TimerEV.STOP:
                 if (audio.current) {
                     audio.current.pause()
                     audio.current.currentTime = startAt
                 }
                 break;
-            case TimerEV.toggle:
+            case TimerEV.TOGGLE:
                 toggle()
-            break;
+                break;
         }
     }
 
-    useEvent("timer", watcher)
+    useEvent(timerEV, watcher)
 
     return <></>
 }
