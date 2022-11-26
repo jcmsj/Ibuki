@@ -1,4 +1,4 @@
-import { UploadFile } from "@mui/icons-material";
+import { default as UploadFile } from "@mui/icons-material/UploadFile";
 import { IconButton } from "@mui/material";
 import { useRoutineContext } from "./RoutineProvider";
 import mockData from "../sample/routine.json";

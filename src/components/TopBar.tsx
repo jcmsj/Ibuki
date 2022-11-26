@@ -1,4 +1,4 @@
-import { ArrowBack } from "@mui/icons-material";
+import { default as ArrowBack } from "@mui/icons-material/ArrowBack";
 import { AppBar, AppBarProps, IconButton, IconButtonProps, Toolbar, ToolbarProps } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import AppTitle from "./AppTitle";

@@ -1,4 +1,4 @@
-import { MusicNote } from "@mui/icons-material";
+import { default as MusicNote } from "@mui/icons-material/MusicNote";
 import { IconButton } from '@mui/material';
 import { ChangeEvent } from "react";
 import { useMXContext } from "./MXProvider";

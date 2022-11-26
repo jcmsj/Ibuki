@@ -1,8 +1,9 @@
 import { Drill, Item } from "./types";
 import { useRoutineContext } from "./RoutineProvider";
-import { Tabs, Tab, MenuItem, Select, SelectChangeEvent, Button, ButtonGroup, ButtonProps, Typography } from "@mui/material"
+import { MenuItem, Select, SelectChangeEvent, Button, ButtonGroup, ButtonProps, Typography } from "@mui/material"
 import "./Switcher.sass"
-import { NavigateBefore, NavigateNext } from "@mui/icons-material";
+import { default as NavigateBefore } from "@mui/icons-material/NavigateBefore";
+import {default as NavigateNext} from "@mui/icons-material/NavigateNext"
 export interface DrillProps {
     drill: Drill
 }

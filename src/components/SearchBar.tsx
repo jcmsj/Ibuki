@@ -1,4 +1,4 @@
-import { Search as SearchIcon } from "@mui/icons-material";
+import { default as SearchIcon } from "@mui/icons-material/Search";
 import { InputOutline } from "./InputOutline";
 
 export function SearchBar({...props }) {
