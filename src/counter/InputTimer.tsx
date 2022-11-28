@@ -5,6 +5,7 @@ import { useInterval } from "../lib/useInterval";
 import { name as timerEV, send, TimerEV, TimerEvent } from "./TimerEV";
 import { useRoutineContext } from "../routine/RoutineProvider";
 import { useEvent } from "react-use";
+import { useTheme } from "@mui/material";
 
 /**
  * @implNote in ms
@@ -15,6 +16,7 @@ export function InputTimer() {
   const { count, last, setCount, dec, save, restore } = useCounter();
   const { state, stop, edit } = usePlayerContext()
   const [raw, setRaw] = useState("")
+  const {palette} = useTheme()
   useInterval(dec, state == STATE.PLAYING ? interval : undefined)
   const {dispatch} = useRoutineContext()
   function override(e: FormEvent<HTMLInputElement>) {
@@ -80,8 +82,11 @@ export function InputTimer() {
         style={{
           border: "none",
           textAlign: "center",
-          fontSize: "inherit",
-          width: "max-content"
+          fontSize: "5rem",
+          width: "max-content",
+          maxWidth:"80vw",
+          background:"none",
+          color:palette.text.primary,
         }}
         onFocus={goEdit}
         onBlur={commitOrRollback}
