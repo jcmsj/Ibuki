@@ -4,6 +4,8 @@ import NoProviderError from "../lib/NoProviderError";
 interface MXContextProps {
     audio:MutableRefObject<HTMLAudioElement|undefined>
     startAt: number;
+    loop:boolean;
+    setLoop:Dispatch<SetStateAction<boolean>>;
     setStart:Dispatch<SetStateAction<number>>
 }
 
@@ -18,9 +20,10 @@ interface MXProviderProps extends PropsWithChildren{
  */
 export function MXProvider({ children, initial=0 }: MXProviderProps) {
     const audio = useRef<HTMLAudioElement>();
+    const [loop, setLoop] = useState(false)
     const [startAt, setStart] = useState(initial)
     return <MXContext.Provider
-        value={{audio, startAt, setStart}}
+        value={{audio, startAt, setStart, loop, setLoop}}
     >
         {children}
     </MXContext.Provider>

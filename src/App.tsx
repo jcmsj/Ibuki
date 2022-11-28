@@ -12,6 +12,7 @@ import RoutineLoader from './routine/Loader'
 import Carousel from './carousel/Carousel'
 import Flow from './routine/Flow'
 import DrillsTab from './routine/DrillsTab'
+import ShouldLoop from './mx/ShouldLoop'
 function App() {
 
   return <>
@@ -23,6 +24,7 @@ function App() {
             <RoutineLoader />
             <MXProvider>
               <InputMX />
+              <ShouldLoop />
             </MXProvider>
           </TopBar>
           <main>

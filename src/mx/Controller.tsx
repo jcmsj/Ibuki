@@ -4,7 +4,7 @@ import { send, TimerEV, TimerEvent, name as timerEV } from "../counter/TimerEV";
 import { useMXContext } from "./MXProvider";
 
 export default function Controller() {
-    const { audio, startAt } = useMXContext()
+    const { audio, startAt, loop } = useMXContext()
     const { state } = usePlayerContext()
     function toggle() {
         send(
@@ -25,7 +25,9 @@ export default function Controller() {
             case TimerEV.STOP:
                 if (audio.current) {
                     audio.current.pause()
-                    audio.current.currentTime = startAt
+                    if (loop) {
+                        audio.current.currentTime = startAt
+                    }
                 }
                 break;
             case TimerEV.TOGGLE:
