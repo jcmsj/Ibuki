@@ -4,6 +4,8 @@ import { MenuItem, Select, SelectChangeEvent, Button, ButtonGroup, ButtonProps, 
 import "./Switcher.sass"
 import { default as NavigateBefore } from "@mui/icons-material/NavigateBefore";
 import {default as NavigateNext} from "@mui/icons-material/NavigateNext"
+import { useEvent } from "react-use";
+import { useCallback } from "react";
 export interface DrillProps {
     drill: Drill
 }
@@ -18,6 +20,24 @@ export function Switcher() {
     const onChange = (e: SelectChangeEvent<number>) => {
         jumpTo(e.target.value as number);
     };
+    
+    const nxt = useCallback(() => {
+        dispatch({next:{item:true}})
+    }, [])
+    const prv = useCallback(() => {
+        jumpTo(Math.max(0,state.itemIndex! - 1))
+    }, [state.itemIndex])
+    
+    useEvent("keyup", e => {
+        switch(e.code) {
+            case "ArrowRight":
+                nxt()
+            break;
+            case "ArrowLeft":
+                prv()
+            break;
+        }
+    })
 
     return <ButtonGroup
         className="switcher"
@@ -25,7 +45,7 @@ export function Switcher() {
         <Skip
             item={state.drill?.items[state.itemIndex! - 1]}
             endIcon={<NavigateBefore />}
-            onClick={jumpTo.bind(undefined, state.itemIndex! - 1)}
+            onClick={prv}
         />
         <Select
             value={state.itemIndex}
@@ -42,7 +62,7 @@ export function Switcher() {
         <Skip
             item={state.drill?.items[state.itemIndex! + 1]}
             startIcon={<NavigateNext />}
-            onClick={jumpTo.bind(undefined, state.itemIndex! + 1)}
+            onClick={nxt}
         />
     </ButtonGroup>
 }
