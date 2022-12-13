@@ -56,7 +56,7 @@ export function Switcher() {
                 value={i}
                 key={item.name}
             >
-                {item.name}
+                {i + 1}. {item.name}
             </MenuItem>)}
         </Select>
         <Skip
