@@ -65,11 +65,11 @@ export function nextFlow(state: RoutineState, next: NextFlow): RoutineState | un
         let index = drills.indexOf(cDrill);
 
         if (typeof index == "number") {
-            drill = indexAtMod(drills)(index)
+            drill = indexAtMod(drills)(++index)
         }
 
         if (drill) {
-            return { ...state, drill, itemIndex: index }
+            return { ...state, drill, itemIndex: 0 }
         }
     }
 
